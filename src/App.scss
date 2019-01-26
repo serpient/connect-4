@@ -1,3 +1,11 @@
+@import './shared.scss';
+
 .App {
+  height: 100vh;
+  top: 0px;
+  display: block;
   text-align: center;
+  background-color: $dark-blue;
+  padding: 100px 30px;
+  box-sizing: border-box;
 }
