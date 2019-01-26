@@ -1,0 +1,30 @@
+@import '../shared.scss';
+
+.board-container {
+  background-color: $frame;
+  height: 700px;
+  width: 900px;
+  box-shadow: $box-shadow-blue-dark;
+  margin: 0px auto;
+  border-radius: 10% 10% 0% 0%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.board-spaces {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-gap: 10px;
+  align-items: end;
+  justify-items: center;
+  padding: 40px;
+}
+.card {
+  display: block;
+  background-color: $empty-coin;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 10px solid $frame-shadow;
+  box-shadow: $box-shadow-blue;
+}
