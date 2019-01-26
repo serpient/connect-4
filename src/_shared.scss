@@ -10,6 +10,8 @@ $golden-yellow: #ffda06;
 $golden-yellow--hover: #f0cc00;
 $blue: #2044b8;
 $blue--hover: #193cad;
+$dark-blue: #1f326e;
+$dark-blue--hover: #18275a;
 
 $palest-grey: #F2F2F2;
 $light-grey: #e6e6e6;
@@ -24,6 +26,8 @@ UI ELEMENTS
 */
 $frame: $blue;
 $frame-shadow: $blue--hover;
+$empty-coin: $dark-blue;
+$empty-coin-shadow: $dark-blue--hover;
 $computer-coin: $theme-red;
 $computer-coin-shadow: $theme-red--hover;
 $user-coin: $golden-yellow;
@@ -36,3 +40,4 @@ SHADOW
 $box-shadow: 3px 3px 6px $light-grey;
 $box-shadow-grey: 3px 3px 16px $grey;
 $box-shadow-blue: 3px 3px 16px $blue--hover;
+$box-shadow-blue-dark: 3px 3px 16px $dark-blue--hover;
