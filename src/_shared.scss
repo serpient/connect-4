@@ -12,6 +12,8 @@ $blue: #2044b8;
 $blue--hover: #193cad;
 $dark-blue: #1f326e;
 $dark-blue--hover: #18275a;
+$purple: #743ad5;
+$bright-pink: #d53a9d;
 
 $palest-grey: #F2F2F2;
 $light-grey: #e6e6e6;
@@ -28,10 +30,12 @@ $frame: $blue;
 $frame-shadow: $blue--hover;
 $empty-coin: $dark-blue;
 $empty-coin-shadow: $dark-blue--hover;
-$computer-coin: $theme-red;
-$computer-coin-shadow: $theme-red--hover;
-$user-coin: $golden-yellow;
-$user-coin-shadow: $golden-yellow--hover;
+
+$computer-coin: linear-gradient(to left, $purple, $bright-pink 100%);
+$computer-coin-shadow: linear-gradient(to right, $purple, $bright-pink 100%);
+
+$human-coin: linear-gradient(to left, $theme-red, $golden-yellow 100%);
+$human-coin-shadow: linear-gradient(to right, $theme-red, $golden-yellow 100%);
 /*
 ==========================
 SHADOW
@@ -41,3 +45,27 @@ $box-shadow: 3px 3px 6px $light-grey;
 $box-shadow-grey: 3px 3px 16px $grey;
 $box-shadow-blue: 3px 3px 16px $blue--hover;
 $box-shadow-blue-dark: 3px 3px 16px $dark-blue--hover;
+/*
+==========================
+COINS
+==========================
+*/
+@mixin coin($color) {
+  position: relative;
+  background-image: $color;
+  margin: 10px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+@mixin coin-border($color) {
+  position: relative;
+  background-image: $color;
+  width: 75px;
+  height: 75px;
+  z-index: 1;
+  border-radius: 50%;
+  margin-top: -75px;
+}
