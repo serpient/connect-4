@@ -1,0 +1,37 @@
+/*
+==========================
+COLORS
+==========================
+*/
+$theme-green: #15CF89;
+$theme-red: #f37070;
+$theme-red--hover: #eb6363;
+$golden-yellow: #ffda06;
+$golden-yellow--hover: #f0cc00;
+$blue: #2044b8;
+$blue--hover: #193cad;
+
+$palest-grey: #F2F2F2;
+$light-grey: #e6e6e6;
+$grey: #A1A1A1;
+$dark-grey: #747474;
+
+$attention-red: #f37070;
+/*
+==========================
+UI ELEMENTS
+==========================
+*/
+$frame: $blue;
+$frame-shadow: $blue--hover;
+$computer-coin: $theme-red;
+$computer-coin-shadow: $theme-red--hover;
+$user-coin: $golden-yellow;
+$user-coin-shadow: $golden-yellow--hover;
+/*
+==========================
+SHADOW
+==========================
+*/
+$box-shadow: 3px 3px 6px $light-grey;
+$box-shadow-grey: 3px 3px 16px $grey;
