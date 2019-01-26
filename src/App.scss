@@ -1,12 +1,14 @@
 @import './shared.scss';
 
 .App {
+  display: block;
   min-height: 100vh;
-  height: 100vh;
+  min-width: 100vw;
+  width: 100%;
   top: 0px;
   display: block;
   text-align: center;
   background-color: $dark-blue;
-  padding: 100px 30px;
+  padding: 100px 40px;
   box-sizing: border-box;
 }

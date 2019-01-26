@@ -7,7 +7,12 @@ const generateBoard = () => {
   let boardMap = new Map();
   for (var i = 1; i < 7; i++) {
     for (var j = 1; j < 8; j++) {
-      boardMap.set([i,j], User.EMPTY);
+      if (i === 1) {
+        boardMap.set([i,j], User.COMPUTER);
+      } else {
+        boardMap.set([i,j], User.HUMAN);
+      }
+      // boardMap.set([i,j], User.EMPTY);
     }
   }
   return boardMap;
