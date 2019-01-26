@@ -19,7 +19,7 @@
   justify-items: center;
   padding: 40px;
 }
-.card {
+.coin {
   display: block;
   background-color: $empty-coin;
   width: 75px;
@@ -27,4 +27,18 @@
   border-radius: 50%;
   border: 10px solid $frame-shadow;
   box-shadow: $box-shadow-blue;
+}
+
+.coin--computer {
+  @include coin($computer-coin);
+}
+.coin--computer-border {
+  @include coin-border($computer-coin-shadow);
+}
+
+.coin--human {
+  @include coin($human-coin);
+}
+.coin--human-border {
+  @include coin-border($human-coin-shadow);
 }
