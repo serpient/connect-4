@@ -82,7 +82,7 @@ class App extends Component {
     return false;
   }
 
-  checkRow = (board, currentPlayer) => {
+  checkWinByRow = (board, currentPlayer) => {
     let isAWin = false;
     board.forEach((row, rowIdx) => {
       let coinsForPlayer = [];
@@ -99,7 +99,7 @@ class App extends Component {
     return isAWin;
   }
 
-  checkColumn = (board, currentPlayer) => {
+  checkWinByColumn = (board, currentPlayer) => {
     let columnFirstBoard = [];
     for (var column = 0; column < 7; column++) {
       columnFirstBoard.push([]) // new column
@@ -107,13 +107,13 @@ class App extends Component {
         columnFirstBoard[column].push(board[row][column])
       }
     }
-    return this.checkRow(columnFirstBoard, currentPlayer);
+    return this.checkWinByRow(columnFirstBoard, currentPlayer);
   }
 
   checkBoard = (board, currentPlayer) => {
-    let row = this.checkRow(board, currentPlayer);
+    let row = this.checkWinByRow(board, currentPlayer);
     console.log('row win=' + row);
-    let column = this.checkColumn(board, currentPlayer);
+    let column = this.checkWinByColumn(board, currentPlayer);
     console.log('column win=' + column);
   }
 
