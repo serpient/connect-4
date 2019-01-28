@@ -42,7 +42,10 @@ class App extends Component {
   boardPlay = (rowIdx, columnIdx) => {
     let { boardData, currentPlayer } = this.state;
 
-    this.addCoinToBoard(columnIdx);
+    let successfulCoinDrop = this.addCoinToBoard(columnIdx);
+    if (!successfulCoinDrop) {
+      return;
+    }
 
     if (this.checkForTie(boardData)) {
       return this.setState({ gameMessage: this.tieMessage });
@@ -76,11 +79,11 @@ class App extends Component {
     for (var row = 5; row >= 0; row--) {
       if (row === 0 && boardData[row][columnIdx] !== User.EMPTY) {
         // if no empty spots, tell user to select another column
-        return this.setState({ gameMessage: this.columnIsFullMessage });
+        this.setState({ gameMessage: this.columnIsFullMessage });
+        return false;
       } else if (boardData[row][columnIdx] === User.EMPTY) {
         boardData[row][columnIdx] = currentPlayer;
-        // this.togglePlayer();
-        return;
+        return true;
       } 
     }
   }
