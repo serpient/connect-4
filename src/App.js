@@ -99,44 +99,23 @@ class App extends Component {
     return isAWin;
   }
 
-  checkBoard = (board, currentPlayer) => {
-    let row = this.checkRow(board, currentPlayer);
-    console.log(row);
+  checkColumn = (board, currentPlayer) => {
+    let columnFirstBoard = [];
+    for (var column = 0; column < 7; column++) {
+      columnFirstBoard.push([]) // new column
+      for (var row = 0; row < 6; row++ ) {
+        columnFirstBoard[column].push(board[row][column])
+      }
+    }
+    return this.checkRow(columnFirstBoard, currentPlayer);
   }
 
-  // checkBoard = (board, currentPlayer) => {
-  //   console.log(currentPlayer === User.HUMAN ? 'yellow player' : 'purple player')
-  //   let { humanCoins, computerCoins } = this.parseBoard(board);
-  //   let coinsToCheck = currentPlayer === User.COMPUTER ? computerCoins : humanCoins;
-  //   console.log(coinsToCheck);
-  //   let victories = [];
-  //   coinsToCheck.forEach((row, rowIdx) => {
-  //     row.forEach(coinPositions => {
-  //       let rowPositions = [];
-  //       let columnPositions = [];
-  //       rowPositions.push(coinPositions[0]);
-  //       columnPositions.push(coinPositions[1]);
-  //       let rowDistance = this.calculateDistance(rowPositions);
-  //       let columnDistance = this.calculateDistance(columnPositions);
-  //       console.log({ rowDistance, columnDistance })
-  //     })
-  //   })
-
-  //   if (rowDistance === 0 && columnDistance === 1) {
-  //     // horz/vertical win
-  //     console.log(currentPlayer + ' wins')
-  //     return true;
-  //   } else if (rowDistance === 1 && columnDistance === 0) {
-  //     // horz/vertical win
-  //     console.log(currentPlayer + ' wins')
-  //     return true;
-  //   } else if (rowDistance === 1 && columnDistance === 1) {
-  //     // diagonal win
-  //     console.log(currentPlayer + ' wins');
-  //     return true;
-  //   } 
-  //   return false;
-  // }
+  checkBoard = (board, currentPlayer) => {
+    let row = this.checkRow(board, currentPlayer);
+    console.log('row win=' + row);
+    let column = this.checkColumn(board, currentPlayer);
+    console.log('column win=' + column);
+  }
 
   render() {
     let { boardData, gameMessage, currentPlayer } = this.state;
