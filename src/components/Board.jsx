@@ -2,7 +2,7 @@ import React from 'react';
 import User from '../UserEnum';
 import './Board.scss';
 
-const Board = ({ boardData, addCoinToBoard}) => {
+const Board = ({ boardData, boardPlay}) => {
   const renderBoardSpaces = (array) => {
     return array.map((row, rowIdx) => {
       return row.map((coinInColumn, columnIdx) => {
@@ -26,7 +26,7 @@ const Board = ({ boardData, addCoinToBoard}) => {
           <div 
             className='coin' 
             key={rowIdx + ',' + columnIdx} 
-            onClick={() => addCoinToBoard(rowIdx, columnIdx)}
+            onClick={() => boardPlay(rowIdx, columnIdx)}
           >
             <div className='coin-position'>{`[${rowIdx}, ${columnIdx}]`} </div>
             {coin}
