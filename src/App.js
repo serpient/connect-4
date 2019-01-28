@@ -36,9 +36,25 @@ class App extends Component {
   boardPlay = (rowIdx, columnIdx) => {
     let { boardData, currentPlayer } = this.state;
     this.addCoinToBoard(columnIdx);
-    this.checkBoard(boardData, currentPlayer);
+    let gameIsATie = this.checkForTie(boardData);
+    if (gameIsATie) {
+      return this.setState({ gameMessage: this.tieMessage });
+    }
+    let playerWins = this.checkBoard(boardData, currentPlayer);
+    playerWins && this.setState({ gameMessage: this.winMessage })
   }
 
+  checkForTie = (boardData) => {
+    let emptyCoins = [];
+    boardData.forEach((row, rowIdx) => {
+      row.forEach((coin, coinIdx) => {
+        if (coin === User.EMPTY) {
+          emptyCoins.push(coin);
+        }
+      })
+    }) 
+    return emptyCoins.length === 0;
+  }
   addCoinToBoard = (columnIdx) => {
     let { boardData, currentPlayer } = this.state;
     this.setState({ gameMessage: this.defaultMessage });
@@ -110,11 +126,17 @@ class App extends Component {
     return this.checkWinByRow(columnFirstBoard, currentPlayer);
   }
 
+  checkWinByDiagonals = (board, currentPlayer) => {
+
+  }
+
   checkBoard = (board, currentPlayer) => {
     let row = this.checkWinByRow(board, currentPlayer);
     console.log('row win=' + row);
     let column = this.checkWinByColumn(board, currentPlayer);
     console.log('column win=' + column);
+    let diagonal = this.checkWinByDiagonals(board, currentPlayer);
+    return row || column || diagonal;
   }
 
   render() {
@@ -122,7 +144,9 @@ class App extends Component {
     let currentPlayerDescription = currentPlayer === User.HUMAN ? 'Player 1' : 'Player 2';
     return (
       <div className="App">
-        {`${currentPlayerDescription}, ${gameMessage}.`}
+        <h1 className='game-message'>
+          {`${currentPlayerDescription}, ${gameMessage}.`}
+        </h1>
         <Board boardPlay={this.boardPlay} boardData={boardData} />
       </div>
     );
