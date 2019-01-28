@@ -127,15 +127,41 @@ class App extends Component {
   }
 
   checkWinByDiagonals = (board, currentPlayer) => {
+    let diagonalsToCheck = [
+      [[3,0], [0,3]],
+      [[4,0], [0,4]],
+      [[5,0], [0,5]],
+      [[5,1], [0,6]],
+      [[5,2], [1,6]],
+      [[5,3], [2,6]],
 
+      [[5,3], [2,0]],
+      [[5,4], [1,0]],
+      [[5,5], [0,0]],
+      [[5,6], [0,1]],
+      [[4,6], [0,2]],
+      [[3,6], [0,3]],
+    ];
+    let diagonalBoard = [];
+    diagonalsToCheck.forEach((diagonal, diagonalIdx) => {
+      diagonalBoard.push([]);
+      let beginRow = diagonal[0][0];
+      let beginColumn = diagonal[0][1];
+      let endRow = diagonal[1][0];
+      let endColumn = diagonal[1][1];
+      for (var i = 0; i < beginRow - endRow + 1; i++) {
+        let column = endColumn - beginColumn > 0 ? beginColumn + i : beginColumn - i;
+        diagonalBoard[diagonalIdx].push(board[beginRow - i][column])
+      }
+    })
+    return this.checkWinByRow(diagonalBoard, currentPlayer);
   }
 
   checkBoard = (board, currentPlayer) => {
     let row = this.checkWinByRow(board, currentPlayer);
-    console.log('row win=' + row);
     let column = this.checkWinByColumn(board, currentPlayer);
-    console.log('column win=' + column);
     let diagonal = this.checkWinByDiagonals(board, currentPlayer);
+    console.log({ row, column, diagonal });
     return row || column || diagonal;
   }
 
