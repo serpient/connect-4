@@ -181,6 +181,7 @@ class App extends Component {
         <h1 className='game-message'>
           {`${currentPlayerDescription}, ${gameMessage}.`}
         </h1>
+        <Board boardPlay={this.boardPlay} boardData={boardData} />
         <button
           type='button'
           className='reset-btn'
@@ -188,7 +189,6 @@ class App extends Component {
         >
           Reset Game
         </button>
-        <Board boardPlay={this.boardPlay} boardData={boardData} />
       </div>
     );
   }
