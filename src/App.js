@@ -36,8 +36,7 @@ class App extends Component {
   boardPlay = (rowIdx, columnIdx) => {
     let { boardData, currentPlayer } = this.state;
     this.addCoinToBoard(columnIdx);
-    let gameIsATie = this.checkForTie(boardData);
-    if (gameIsATie) {
+    if (this.checkForTie(boardData)) {
       return this.setState({ gameMessage: this.tieMessage });
     }
     let playerWins = this.checkBoard(boardData, currentPlayer);
@@ -55,6 +54,7 @@ class App extends Component {
     }) 
     return emptyCoins.length === 0;
   }
+
   addCoinToBoard = (columnIdx) => {
     let { boardData, currentPlayer } = this.state;
     this.setState({ gameMessage: this.defaultMessage });
@@ -79,11 +79,11 @@ class App extends Component {
         i++;
       }
       let distance = (array[i] - currentPosition);
-      if (distanceTracker.hasOwnProperty(distance)) {
-        distanceTracker[distance] = distanceTracker[distance] + 1;
-      } else {
-        distanceTracker[distance] = 1;
-      }
+      distanceTracker[distance] = (
+        distanceTracker.hasOwnProperty(distance) 
+          ? distanceTracker[distance] + 1 
+          : 1
+      );
       currentPosition = array[i];
     }
     return distanceTracker;
