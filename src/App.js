@@ -4,15 +4,11 @@ import './App.scss';
 import User from './UserEnum';
 
 const generateBoard = () => {
-  let boardMap = new Map();
-  for (var i = 1; i < 7; i++) {
-    for (var j = 1; j < 8; j++) {
-      // if (i === 1) {
-      //   boardMap.set([i,j], User.COMPUTER);
-      // } else {
-      //   boardMap.set([i,j], User.HUMAN);
-      // }
-      boardMap.set([i,j], User.EMPTY);
+  let boardMap = [];
+  for (var row = 0; row < 6; row++) {
+    boardMap.push([]);
+    for (var column = 0; column < 7; column++) {
+      boardMap[row].push(User.EMPTY);
     }
   }
   return boardMap;
@@ -20,15 +16,45 @@ const generateBoard = () => {
 class App extends Component {
   constructor(props) {
     super(props);
+    this.defaultMessage = `Please select a coin spot`;
+    this.columnIsFullMessage = 'Please select another column';
+    this.winMessage = 'You have won';
+    this.tieMessage = 'This game is a tie';
     this.state = {
       boardData: generateBoard(),
+      currentPlayer: User.HUMAN,
+      gameMessage: `Please select a coin spot`,
     }
   }
+
+  togglePlayer = () => {
+    let { currentPlayer } = this.state;
+    let newPlayer = currentPlayer === User.HUMAN ? User.COMPUTER : User.HUMAN;
+    this.setState({ currentPlayer: newPlayer });
+  }
+
+  addCoinToBoard = (rowIdx, columnIdx) => {
+    let { boardData, currentPlayer } = this.state;
+    for (var row = 5; row >= 0; row--) {
+      if (boardData[row][columnIdx] === User.EMPTY) {
+        boardData[row][columnIdx] = currentPlayer;
+        this.togglePlayer();
+        return;
+      }
+      if (row === 5 && boardData[row][columnIdx] !== User.EMPTY) {
+        // if no empty spots, tell user to select another column
+        return this.setState({ gameMessage: this.columnIsFullMessage });
+      }
+    }
+  }
+
   render() {
-    let { boardData } = this.state;
+    let { boardData, gameMessage, currentPlayer } = this.state;
+    let currentPlayerDescription = currentPlayer === User.HUMAN ? 'Player 1' : 'Player 2';
     return (
       <div className="App">
-        <Board boardData={boardData} />
+        {`${currentPlayerDescription}, ${gameMessage}.`}
+        <Board addCoinToBoard={this.addCoinToBoard} boardData={boardData} />
       </div>
     );
   }
