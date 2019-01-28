@@ -20,6 +20,7 @@ class App extends Component {
       boardData: generateBoard(),
       currentPlayer: User.HUMAN,
       gameMessage: `Please select a coin spot`,
+      playWinAnimation: false,
     }
   }
 
@@ -39,12 +40,21 @@ class App extends Component {
 
   boardPlay = (rowIdx, columnIdx) => {
     let { boardData, currentPlayer } = this.state;
+
     this.addCoinToBoard(columnIdx);
+
     if (this.checkForTie(boardData)) {
       return this.setState({ gameMessage: this.tieMessage });
     }
-    let playerWins = this.checkBoard(boardData, currentPlayer);
-    playerWins && this.setState({ gameMessage: this.winMessage })
+
+    if (this.checkBoard(boardData, currentPlayer)) {
+      this.setState({ 
+        gameMessage: this.winMessage,
+        playWinAnimation: true, 
+      })
+    } else {
+      setTimeout(() => { this.togglePlayer() }, 300)
+    }
   }
 
   checkForTie = (boardData) => {
@@ -68,7 +78,7 @@ class App extends Component {
         return this.setState({ gameMessage: this.columnIsFullMessage });
       } else if (boardData[row][columnIdx] === User.EMPTY) {
         boardData[row][columnIdx] = currentPlayer;
-        this.togglePlayer();
+        // this.togglePlayer();
         return;
       } 
     }
@@ -97,13 +107,17 @@ class App extends Component {
   }
 
   render() {
-    let { boardData, gameMessage, currentPlayer } = this.state;
+    let { boardData, gameMessage, currentPlayer,playWinAnimation } = this.state;
+    let player = currentPlayer === User.HUMAN ? 'human' : 'computer';
     let currentPlayerDescription = currentPlayer === User.HUMAN ? 'Player 1' : 'Player 2';
     return (
       <div className="App">
-        <h1 className='game-message'>
-          {`${currentPlayerDescription}, ${gameMessage}.`}
-        </h1>
+        { playWinAnimation 
+          ? <WinAnimation currentPlayer={currentPlayer} />
+          : <h1 className={`game-message player--${player}`}>
+              {`${currentPlayerDescription}, ${gameMessage}.`}
+            </h1>
+        }
         <Board boardPlay={this.boardPlay} boardData={boardData} />
         <button
           type='button'
@@ -115,6 +129,20 @@ class App extends Component {
       </div>
     );
   }
+}
+
+const WinAnimation = ({currentPlayer}) => {
+  let player = currentPlayer === User.HUMAN ? 'human' : 'computer';
+  let playerDescription = currentPlayer === User.HUMAN ? 'Player 1' : 'Player 2';
+  return (
+    <div className='game-win'>
+      <div className={`coin--${player}`} />
+      <div className={`coin--${player}-border`} />
+      <div className='game-win--text'>
+        {playerDescription} Wins!
+      </div>
+    </div> 
+  )
 }
 
 export default App;

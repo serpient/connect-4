@@ -17,7 +17,19 @@
   color: white;
   font-size: 28px;
   letter-spacing: 1.5px;
+  margin: 0 auto;
+  width: 600px;
   margin-bottom: 20px;
+  padding: 10px 0px;
+  border-radius:20px;
+  box-shadow: $box-shadow-blue-dark;
+}
+
+.player--human {
+  background-image: $human-coin;
+}
+.player--computer {
+  background-image: $computer-coin;
 }
 
 .reset-btn {
@@ -28,7 +40,69 @@
   padding: 10px 60px;
   color: white;
   margin-top: 30px;
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: 1.5px;
   font-weight: 600;
+}
+
+.game-win {
+  display: block;
+
+  .coin--human,
+  .coin--computer,
+  .coin--human-border,
+  .coin--computer-border {
+    transform: scale(1.4);
+    margin: 0 auto;
+    animation-duration: 0.7s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+  }
+  .coin--human,
+  .coin--computer {
+    animation-name: twirl;
+  }
+  .coin--human-border,
+  .coin--computer-border {
+    margin-top: -66px;
+    animation-name: twirl-border;
+  }
+}
+
+.game-win--text {
+  color: white;
+  font-size: 40px;
+  text-transform: capitalize;
+  margin: 50px auto;
+  font-weight: 600;
+}
+
+@keyframes twirl {
+  0% { 
+    width: 0px;  
+  }
+  45% { 
+    transform: scale(1.6);
+  }
+  50% { 
+    width: 55px;  
+  }
+  100% {
+    width: 0px;
+  }
+}
+
+@keyframes twirl-border {
+  0% { 
+    width: 5px;
+  }
+  45% {
+    transform: scale(1.6);
+  }
+  50% { 
+    width: 76px; 
+  }
+  100% {
+    width: 5px;
+  }
 }
