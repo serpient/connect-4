@@ -54,89 +54,89 @@ class App extends Component {
     }
   }
 
-  parseBoard = (board) => {
-    let humanCoins = [];
-    let computerCoins = [];
-    board.forEach((row, rowIdx) => {
-      humanCoins.push([]);
-      computerCoins.push([]);
-      row.forEach((coin, coinSpaceIdx) => {
-        switch (board[rowIdx][coinSpaceIdx]) {
-          case User.HUMAN:
-            humanCoins[rowIdx].push([rowIdx, coinSpaceIdx]);
-            break;
-          case User.COMPUTER:
-            computerCoins[rowIdx].push([rowIdx, coinSpaceIdx]);
-            break;
-          default:
-            break;
-        }
-      })
-    })
-    return { humanCoins, computerCoins };
-  }
-
   calculateDistance = (array) => {
     let currentPosition;
     let distanceTracker = {};
-    array.sort().forEach((num) => {
+    for (let i = 0; i < array.length; i++) {
       if (!currentPosition) {
-        currentPosition = num;
-        return;
+        currentPosition = array[i];
+        i++;
       }
-      let distance = num - currentPosition;
+      let distance = (array[i] - currentPosition);
       if (distanceTracker.hasOwnProperty(distance)) {
-        distanceTracker[distance] += 1;
+        distanceTracker[distance] = distanceTracker[distance] + 1;
       } else {
-        distanceTracker[num - currentPosition] = 1;
+        distanceTracker[distance] = 1;
       }
-      currentPosition = num;
-    })
-    console.log(distanceTracker);
-    let matchingDistances = null;
-    for (var key in distanceTracker) {
-      if (key == 0 || key == 1) { // string match
-        if (distanceTracker[key] >= 3) {
-          matchingDistances = Number.parseInt(key);
-        }
+      currentPosition = array[i];
+    }
+    return distanceTracker;
+  }
+
+  are4CoinsAdjacent = (object) => {
+    for (let key in object) {
+      if ((key == 0 || key == 1) && object[key] >= 3) {
+        return true;
       }
     }
-    return matchingDistances;
+    return false;
+  }
+
+  checkRow = (board, currentPlayer) => {
+    let isAWin = false;
+    board.forEach((row, rowIdx) => {
+      let coinsForPlayer = [];
+      row.forEach((coinPosition, coinIdx) => {
+        if (coinPosition === currentPlayer) {
+          coinsForPlayer.push(coinIdx);
+        }
+        if (coinsForPlayer.length >= 4 && coinIdx === row.length - 1) {
+          let distanceObj = this.calculateDistance(coinsForPlayer);
+          isAWin = this.are4CoinsAdjacent(distanceObj);
+        }
+      })
+    })
+    return isAWin;
   }
 
   checkBoard = (board, currentPlayer) => {
-    console.log(currentPlayer === User.HUMAN ? 'yellow player' : 'purple player')
-    let { humanCoins, computerCoins } = this.parseBoard(board);
-    let coinsToCheck = currentPlayer === User.COMPUTER ? computerCoins : humanCoins;
-    console.log(coinsToCheck);
-    let victories = [];
-    coinsToCheck.forEach((row, rowIdx) => {
-      row.forEach(coinPositions => {
-        let rowPositions = [];
-        let columnPositions = [];
-        rowPositions.push(coinPositions[0]);
-        columnPositions.push(coinPositions[1]);
-        let rowDistance = this.calculateDistance(rowPositions);
-        let columnDistance = this.calculateDistance(columnPositions);
-        console.log({ rowDistance, columnDistance })
-      })
-    })
-
-    if (rowDistance === 0 && columnDistance === 1) {
-      // horz/vertical win
-      console.log(currentPlayer + ' wins')
-      return true;
-    } else if (rowDistance === 1 && columnDistance === 0) {
-      // horz/vertical win
-      console.log(currentPlayer + ' wins')
-      return true;
-    } else if (rowDistance === 1 && columnDistance === 1) {
-      // diagonal win
-      console.log(currentPlayer + ' wins');
-      return true;
-    } 
-    return false;
+    let row = this.checkRow(board, currentPlayer);
+    console.log(row);
   }
+
+  // checkBoard = (board, currentPlayer) => {
+  //   console.log(currentPlayer === User.HUMAN ? 'yellow player' : 'purple player')
+  //   let { humanCoins, computerCoins } = this.parseBoard(board);
+  //   let coinsToCheck = currentPlayer === User.COMPUTER ? computerCoins : humanCoins;
+  //   console.log(coinsToCheck);
+  //   let victories = [];
+  //   coinsToCheck.forEach((row, rowIdx) => {
+  //     row.forEach(coinPositions => {
+  //       let rowPositions = [];
+  //       let columnPositions = [];
+  //       rowPositions.push(coinPositions[0]);
+  //       columnPositions.push(coinPositions[1]);
+  //       let rowDistance = this.calculateDistance(rowPositions);
+  //       let columnDistance = this.calculateDistance(columnPositions);
+  //       console.log({ rowDistance, columnDistance })
+  //     })
+  //   })
+
+  //   if (rowDistance === 0 && columnDistance === 1) {
+  //     // horz/vertical win
+  //     console.log(currentPlayer + ' wins')
+  //     return true;
+  //   } else if (rowDistance === 1 && columnDistance === 0) {
+  //     // horz/vertical win
+  //     console.log(currentPlayer + ' wins')
+  //     return true;
+  //   } else if (rowDistance === 1 && columnDistance === 1) {
+  //     // diagonal win
+  //     console.log(currentPlayer + ' wins');
+  //     return true;
+  //   } 
+  //   return false;
+  // }
 
   render() {
     let { boardData, gameMessage, currentPlayer } = this.state;
