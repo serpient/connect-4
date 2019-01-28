@@ -27,6 +27,14 @@
   border-radius: 50%;
   border: 10px solid $frame-shadow;
   box-shadow: $box-shadow-blue;
+  color: white;
+}
+.coin-position {
+  position: relative;
+  margin-top: -15px;
+  font-size: 15px;
+  color: $dark-blue;
+  color: white;
 }
 
 .coin--computer {
