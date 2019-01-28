@@ -27,6 +27,14 @@ class App extends Component {
     }
   }
 
+  resetGame = () => {
+    this.setState({ 
+      boardData: generateBoard(), 
+      gameMessage: this.defaultMessage,
+      currentPlayer: User.HUMAN,
+    });
+  }
+
   togglePlayer = () => {
     let { currentPlayer } = this.state;
     let newPlayer = currentPlayer === User.HUMAN ? User.COMPUTER : User.HUMAN;
@@ -173,6 +181,13 @@ class App extends Component {
         <h1 className='game-message'>
           {`${currentPlayerDescription}, ${gameMessage}.`}
         </h1>
+        <button
+          type='button'
+          className='reset-btn'
+          onClick={() => this.resetGame()}
+        >
+          Reset Game
+        </button>
         <Board boardPlay={this.boardPlay} boardData={boardData} />
       </div>
     );
