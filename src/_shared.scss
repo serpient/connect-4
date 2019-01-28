@@ -63,9 +63,9 @@ COINS
 @mixin coin-border($color) {
   position: relative;
   background-image: $color;
-  width: 75px;
-  height: 75px;
+  width: 76px;
+  height: 76px;
   z-index: 1;
   border-radius: 50%;
-  margin-top: -75px;
+  margin-top: -76px;
 }

@@ -9,6 +9,7 @@
   border-radius: 10% 10% 0% 0%;
   padding: 10px;
   // box-sizing: border-box;
+  border: 10px solid $blue--hover;
 }
 .board-spaces {
   display: grid;
