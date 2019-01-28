@@ -138,7 +138,7 @@ const WinAnimation = ({currentPlayer}) => {
     <div className='game-win'>
       <div className={`coin--${player}`} />
       <div className={`coin--${player}-border`} />
-      <div className='game-win--text'>
+      <div className={`game-win--text game-message player--${player}`}>
         {playerDescription} Wins!
       </div>
     </div> 
