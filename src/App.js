@@ -35,16 +35,16 @@ class App extends Component {
 
   addCoinToBoard = (rowIdx, columnIdx) => {
     let { boardData, currentPlayer } = this.state;
+    this.setState({ gameMessage: this.defaultMessage });
     for (var row = 5; row >= 0; row--) {
-      if (boardData[row][columnIdx] === User.EMPTY) {
+      if (row === 0 && boardData[row][columnIdx] !== User.EMPTY) {
+        // if no empty spots, tell user to select another column
+        return this.setState({ gameMessage: this.columnIsFullMessage });
+      } else if (boardData[row][columnIdx] === User.EMPTY) {
         boardData[row][columnIdx] = currentPlayer;
         this.togglePlayer();
         return;
-      }
-      if (row === 5 && boardData[row][columnIdx] !== User.EMPTY) {
-        // if no empty spots, tell user to select another column
-        return this.setState({ gameMessage: this.columnIsFullMessage });
-      }
+      } 
     }
   }
 
