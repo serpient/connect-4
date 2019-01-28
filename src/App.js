@@ -29,6 +29,7 @@ class App extends Component {
       boardData: generateBoard(), 
       gameMessage: this.defaultMessage,
       currentPlayer: User.HUMAN,
+      playWinAnimation: false,
     });
   }
 
