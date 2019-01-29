@@ -66,23 +66,149 @@ describe('coins drop into bottom rows', () => {
 
 describe('win game by horizontal matches', () => {
   let wrapper;
-  beforeAll(() => {
+  beforeEach(() => {
     wrapper = mount(<App />);
+  })
+  it('wins game with 4 adjacent coins', () => {
+    const board = [
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,1,1,1,1,0,0],
+    ];
+    wrapper.setState({ boardData: board });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper.state('playWinAnimation')).toEqual(true);
+    }, 300)
+  })
+  it('does NOT game with 4 adjacent coins on different rows', () => {
+    const board = [
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,1,0,0,0],
+      [0,1,1,0,1,0,0],
+    ];
+    wrapper.setState({ boardData: board });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper.state('playWinAnimation')).toEqual(false);
+    }, 300)
   })
 })
 
-// check for win (horizontal, diagonal, vertical)
+describe('win game by vertical matches', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(<App />);
+  })
+  it('wins game with 4 adjacent coins', () => {
+    const board = [
+      [0,0,0,0,0,0,0],
+      [0,1,0,0,0,0,0],
+      [0,1,0,0,0,0,0],
+      [0,1,0,0,0,0,0],
+      [0,1,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+    ];
+    wrapper.setState({ boardData: board });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper.state('playWinAnimation')).toEqual(true);
+    }, 300)
+  })
+  it('does NOT game with 4 adjacent coins on different columns', () => {
+    const board = [
+      [0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0],
+      [0,0,0,1,0,0,0],
+      [0,0,1,0,0,0,0],
+      [0,0,1,0,0,0,0],
+      [0,0,0,0,0,0,0],
+    ];
+    wrapper.setState({ boardData: board });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper.state('playWinAnimation')).toEqual(false);
+    }, 300)
+  })
+})
 
-// check for no possible spaces left (tie)
+describe('win game by diagonal matches', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(<App />);
+  })
+  it('wins game with 4 adjacent coins - #1', () => {
+    const board = [
+      [0,0,0,1,0,0,0],
+      [0,0,1,0,0,0,0],
+      [0,1,0,0,0,0,0],
+      [1,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+    ];
+    wrapper.setState({ boardData: board });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper.state('playWinAnimation')).toEqual(true);
+    }, 300)
+  })
+  it('wins game with 4 adjacent coins - #2', () => {
+    const board = [
+      [0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0],
+      [0,0,0,1,0,0,0],
+      [0,0,0,0,1,0,0],
+      [0,0,0,0,0,1,0],
+      [0,0,0,0,0,0,0],
+    ];
+    wrapper.setState({ boardData: board });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper.state('playWinAnimation')).toEqual(true);
+    }, 300)
+  })
+  it('does NOT game with 4 adjacent coins on different columns', () => {
+    const board = [
+      [0,0,0,0,1,0,0],
+      [0,0,0,1,0,0,0],
+      [0,0,1,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [1,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+    ];
+    wrapper.setState({ boardData: board });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper.state('playWinAnimation')).toEqual(false);
+    }, 300)
+  })
+})
 
-// row checker
-// adjacent are true
-// interleaven coins are false
-
-// diagonal checker
-
-// horizontal checker
-
-// diagonal board creator is correct
-
-// column board creator is correct
+describe('game is a tie when all the spaces are filled', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(<App />);
+  })
+  it('spaces filled up is a tie', () => {
+    const board = [
+      [2,1,1,2,1,1,2],
+      [1,2,2,1,2,2,1],
+      [2,1,1,2,1,1,2],
+      [1,2,2,1,2,2,1],
+      [2,1,1,2,1,1,2],
+      [1,2,2,1,2,2,1],
+    ];
+    wrapper.setState({ boardData: board });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper.state('playWinAnimation')).toEqual(false);
+      expect(wrapper.state('gameMessage')).toEqual('This game is a tie');
+    }, 300)
+  })
+})
