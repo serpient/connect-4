@@ -99,6 +99,21 @@ describe('win game by horizontal matches', () => {
       expect(wrapper.state('playWinAnimation')).toEqual(false);
     }, 300)
   })
+  it('does NOT game with 4 adjacent coins on different rows', () => {
+    const board = [
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,1,1,2,1,0,0],
+    ];
+    wrapper.setState({ boardData: board });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper.state('playWinAnimation')).toEqual(false);
+    }, 300)
+  })
 })
 
 describe('win game by vertical matches', () => {
@@ -126,6 +141,21 @@ describe('win game by vertical matches', () => {
       [0,0,0,0,0,0,0],
       [0,0,1,0,0,0,0],
       [0,0,0,1,0,0,0],
+      [0,0,1,0,0,0,0],
+      [0,0,1,0,0,0,0],
+      [0,0,0,0,0,0,0],
+    ];
+    wrapper.setState({ boardData: board });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper.state('playWinAnimation')).toEqual(false);
+    }, 300)
+  })
+  it('does NOT game with 4 adjacent coins on different columns', () => {
+    const board = [
+      [0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0],
+      [0,0,2,0,0,0,0],
       [0,0,1,0,0,0,0],
       [0,0,1,0,0,0,0],
       [0,0,0,0,0,0,0],
@@ -179,6 +209,21 @@ describe('win game by diagonal matches', () => {
       [0,0,0,1,0,0,0],
       [0,0,1,0,0,0,0],
       [0,0,0,0,0,0,0],
+      [1,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+    ];
+    wrapper.setState({ boardData: board });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper.state('playWinAnimation')).toEqual(false);
+    }, 300)
+  })
+  it('does NOT game with 4 adjacent coins on different columns', () => {
+    const board = [
+      [0,0,0,0,1,0,0],
+      [0,0,0,1,0,0,0],
+      [0,0,1,0,0,0,0],
+      [0,2,0,0,0,0,0],
       [1,0,0,0,0,0,0],
       [0,0,0,0,0,0,0],
     ];
