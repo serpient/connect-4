@@ -64,7 +64,12 @@ describe('coins drop into bottom rows', () => {
   })
 })
 
-
+describe('win game by horizontal matches', () => {
+  let wrapper;
+  beforeAll(() => {
+    wrapper = mount(<App />);
+  })
+})
 
 // check for win (horizontal, diagonal, vertical)
 
