@@ -57,7 +57,7 @@ class App extends Component {
         playWinAnimation: true, 
       })
     } else {
-      setTimeout(() => { this.togglePlayer() }, 300)
+      return this.togglePlayer();
     }
   }
 
