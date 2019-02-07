@@ -2,7 +2,7 @@
   "name": "connect-4",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/serpient/connect-4",
+  "homepage": "https://serpient.github.io/connect-4",
   "dependencies": {
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.8.0",

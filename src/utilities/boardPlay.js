@@ -20,6 +20,10 @@ export const calculateDistance = (array) => {
       i++;
     }
     let distance = (array[i] - currentPosition);
+    // resets object if after non-matching 1s, 
+    if (distanceTracker[1] && distance !== 1) {
+      distanceTracker = {};
+    }
     distanceTracker[distance] = (
       distanceTracker.hasOwnProperty(distance) 
         ? distanceTracker[distance] + 1 
@@ -49,6 +53,7 @@ export const checkRowForMatchingCoins = (board, currentPlayer) => {
       }
       if (coinsForPlayer.length >= 4 && coinIdx === row.length - 1) {
         let distanceObj = calculateDistance(coinsForPlayer);
+        console.log({ distanceObj })
         isAWin = are4CoinsAdjacent(distanceObj);
       }
     })
