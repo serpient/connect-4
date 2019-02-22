@@ -214,6 +214,38 @@ describe('win game by diagonal matches', () => {
     expect(wrapper.state('playWinAnimation')).toEqual(true);
     expect(wrapper.state('currentPlayer')).toEqual(User.COMPUTER);
   })
+  it('wins game with 4 adjacent coins', () => {
+    const board = [
+      [0,1,0,0,0,0,0],
+      [0,1,2,2,1,2,1],
+      [2,2,1,1,1,2,1],
+      [2,1,1,2,2,1,2],
+      [1,2,2,1,1,2,1],
+      [1,2,1,2,2,1,2],
+    ];
+    wrapper.setState({ boardData: board, currentPlayer: User.COMPUTER });
+    wrapper.update();
+    wrapper.instance().boardPlay(0, 3);
+    wrapper.update();
+    expect(wrapper.state('playWinAnimation')).toEqual(true);
+    expect(wrapper.state('currentPlayer')).toEqual(User.COMPUTER);
+  })
+  it('wins game with 4 adjacent coins', () => {
+    const board = [
+      [0,1,0,0,0,0,0],
+      [0,1,2,0,1,2,1],
+      [2,2,1,1,1,2,1],
+      [2,1,1,2,2,1,2],
+      [1,2,2,1,1,2,1],
+      [1,2,1,2,2,1,2],
+    ];
+    wrapper.setState({ boardData: board, currentPlayer: User.HUMAN });
+    wrapper.update();
+    wrapper.instance().boardPlay(0, 3);
+    wrapper.update();
+    expect(wrapper.state('playWinAnimation')).toEqual(true);
+    expect(wrapper.state('currentPlayer')).toEqual(User.HUMAN);
+  })
   it('does NOT game with 4 adjacent coins on different columns', () => {
     const board = [
       [0,0,0,0,0,0,0],
