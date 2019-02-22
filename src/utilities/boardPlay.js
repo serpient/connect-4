@@ -44,21 +44,18 @@ export const are4CoinsAdjacent = (object) => {
 }
 
 export const checkRowForMatchingCoins = (board, currentPlayer) => {
-  let isAWin = false;
-  board.forEach((row, rowIdx) => {
+  return board.some((row, rowIdx) => {
     let coinsForPlayer = [];
-    row.forEach((coinPosition, coinIdx) => {
+    return row.some((coinPosition, coinIdx) => {
       if (coinPosition === currentPlayer) {
         coinsForPlayer.push(coinIdx);
       }
       if (coinsForPlayer.length >= 4 && coinIdx === row.length - 1) {
         let distanceObj = calculateDistance(coinsForPlayer);
-        console.log({ distanceObj })
-        isAWin = are4CoinsAdjacent(distanceObj);
+        return are4CoinsAdjacent(distanceObj);
       }
     })
   })
-  return isAWin;
 }
 
 export const generateBoardByColumn = (board) => {
