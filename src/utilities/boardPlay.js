@@ -51,8 +51,8 @@ export const checkRowForMatchingCoins = (board, currentPlayer) => {
         coinsForPlayer.push(coinIdx);
       }
       if (coinsForPlayer.length >= 4 && coinIdx === row.length - 1) {
-        let distanceObj = calculateDistance(coinsForPlayer);
-        return are4CoinsAdjacent(distanceObj);
+        let distances = calculateDistance(coinsForPlayer);
+        return are4CoinsAdjacent(distances);
       }
     })
   })
