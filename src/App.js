@@ -63,8 +63,8 @@ class App extends Component {
 
   checkForTie = (boardData) => {
     let emptyCoins = [];
-    boardData.forEach((row, rowIdx) => {
-      row.forEach((coin, coinIdx) => {
+    boardData.forEach((row) => {
+      row.forEach((coin) => {
         if (coin === User.EMPTY) {
           emptyCoins.push(coin);
         }
@@ -106,7 +106,6 @@ class App extends Component {
     let row = this.checkWinByRow(board, currentPlayer);
     let column = this.checkWinByColumn(board, currentPlayer);
     let diagonal = this.checkWinByDiagonals(board, currentPlayer);
-    console.log({ row, column, diagonal });
     return row || column || diagonal;
   }
 
