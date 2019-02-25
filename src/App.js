@@ -44,11 +44,9 @@ class App extends Component {
 
     let successfulCoinDrop = this.addCoinToBoard(columnIdx);
     if (!successfulCoinDrop) {
+      // returns out of this function and allows
+      // current player to drop another coin
       return;
-    }
-
-    if (this.checkForTie(boardData)) {
-      return this.setState({ gameMessage: this.tieMessage });
     }
 
     if (this.checkBoard(boardData, currentPlayer)) {
@@ -56,21 +54,24 @@ class App extends Component {
         gameMessage: this.winMessage,
         playWinAnimation: true, 
       })
-    } else {
-      return this.togglePlayer();
+      return;
+    } 
+    
+    if (this.checkForTie(boardData)) {
+      return this.setState({ gameMessage: this.tieMessage });
     }
+
+    return this.togglePlayer();
   }
 
   checkForTie = (boardData) => {
-    let emptyCoins = [];
-    boardData.forEach((row) => {
-      row.forEach((coin) => {
-        if (coin === User.EMPTY) {
-          emptyCoins.push(coin);
-        }
+    let hasEmptySlot = boardData.some((row) => {
+      return row.some((coin) => {
+        return coin === User.EMPTY;
       })
-    }) 
-    return emptyCoins.length === 0;
+    })
+    let isATie = !hasEmptySlot;
+    return isATie;
   }
 
   addCoinToBoard = (columnIdx) => {
