@@ -71,6 +71,9 @@ describe('win game by horizontal matches', () => {
   beforeEach(() => {
     wrapper = mount(<App />);
   })
+  afterEach(() => {
+    wrapper.unmount();
+  })
   it('wins game with 4 adjacent coins', () => {
     const board = [
       [0,0,0,0,0,0,0],
@@ -87,7 +90,22 @@ describe('win game by horizontal matches', () => {
     expect(wrapper.state('playWinAnimation')).toEqual(true);
     expect(wrapper.state('currentPlayer')).toEqual(User.HUMAN);
   })
-  // bug! this passes even though it actually trigger true
+  it('wins game with 4 adjacent coins', () => {
+    const board = [
+      [0,1,1,1,2,2,2],
+      [1,2,1,2,1,2,1],
+      [2,2,1,2,1,2,1],
+      [1,1,2,1,2,1,2],
+      [2,1,2,1,2,1,2],
+      [1,2,1,2,1,2,1],
+    ];
+    wrapper.setState({ boardData: board, currentPlayer: User.HUMAN });
+    wrapper.update();
+    wrapper.instance().boardPlay(0,0);
+    wrapper.update();
+    expect(wrapper.state('playWinAnimation')).toEqual(true);
+    expect(wrapper.state('currentPlayer')).toEqual(User.HUMAN);
+  })
   it('does NOT win game with adjacent coins', () => {
     const board = [
       [0,0,0,0,0,0,0],
